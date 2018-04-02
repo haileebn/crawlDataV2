@@ -83,7 +83,7 @@ function init() {
                 data.Sensors[0].Data[1] = kit.Data.Humidity;
                 rp(optionsAddLastDataKit(data))
                   .then((response) => {
-                    console.log(JSON.stringify({response, index}));
+                    //console.log(JSON.stringify({response, index}));
                   })
                   .catch((err) => {
                     console.log("Add Fail");
