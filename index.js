@@ -125,7 +125,7 @@ function init() {
                   });
                 if(index === result.length - 1)
                   console.log("\ndone");
-            }, index*350)
+            }, index*400)
             });
             // console.log(result.rxs.obs[0].msg.model.timestamp*1000);
         });
@@ -177,7 +177,7 @@ function init() {
     // });
     setTimeout(() => {
         init();
-    }, 15*60*1000);
+    }, 30*60*1000);
 }
 
 //
@@ -186,7 +186,7 @@ function init() {
 // });
 
 function fakeDataKitFimo() {
-  const timeFake = 10;
+  const timeFake = 20;
     rp(optionsAddLastDataKit(fakeRecordOneKit()))
         .then(result => {
             console.log(`(${timeFake}s) Send Data Kit FIMO Message: ${result.message}`);
@@ -201,7 +201,7 @@ function fakeRecordOneKit() {
     let temp = getRandomInt(20, 40),
         hud = getRandomInt(40, 80);
     const data = {
-      KitID: 775,
+      KitID: 3152,
       Sensors: [
         {
           name: 'DHT22',
