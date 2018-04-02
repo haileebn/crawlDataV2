@@ -7,7 +7,7 @@ const urlAllKit = `https://airmap.g0v.asper.tw/json/airmap.json`;
 const urlDataKit = "http://118.70.72.15:2223/data";
 
 const length = 50;
-const timeMax = 15; //30s
+const timeMax = 30; //30s
 let MinKitID = 0;
 let MaxKitID = MinKitID + length;
 
@@ -74,7 +74,7 @@ function init() {
           }
             for(let index = MinKitID; index < MaxKitID; index++){
               let kit = result[index];
-              // setTimeout(() => {
+              setTimeout(() => {
                 data.Sensors[0].Time = new Date(kit.Data.Create_at).getTime();
                 data.Sensors[1].Time = new Date(kit.Data.Create_at).getTime();
                 data["KitID"] = index + 1;
@@ -83,12 +83,12 @@ function init() {
                 data.Sensors[0].Data[1] = kit.Data.Humidity;
                 rp(optionsAddLastDataKit(data))
                   .then((response) => {
-                    // console.log(JSON.stringify({response, index}));
+                    console.log(JSON.stringify({response, index}));
                   })
                   .catch((err) => {
                     console.log("Add Fail");
                   });
-                  // }, index*100);
+                }, index*300);
             }
             // console.log(result.rxs.obs[0].msg.model.timestamp*1000);
         });
