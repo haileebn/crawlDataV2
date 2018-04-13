@@ -68,7 +68,7 @@ function init() {
     const data2 = {KitID: "",Sensors: [{name: 'DHT22',Time: 0,Data: [ 0, 0]},{name: 'PMS5003',Time: 0,Data: [0, 0, 0]},]};
     rp(optionsLastRecord())
         .then(result => {
-          if (MaxKitID > 3100) {
+          if (MaxKitID > 1000) {
             MinKitID = 0;
       			MaxKitID = length;
           }
@@ -116,7 +116,7 @@ function fakeRecordOneKit() {
     let temp = getRandomInt(20, 40),
         hud = getRandomInt(40, 80);
     const data = {
-      KitID: 3152,
+      KitID: 1001,
       Sensors: [
         {
           name: 'DHT22',
