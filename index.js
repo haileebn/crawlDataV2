@@ -68,13 +68,10 @@ function init() {
     const data2 = {KitID: "",Sensors: [{name: 'DHT22',Time: 0,Data: [ 0, 0]},{name: 'PMS5003',Time: 0,Data: [0, 0, 0]},]};
     rp(optionsLastRecord())
         .then(result => {
-          if (MaxKitID > 1000) {
-            MinKitID = 0;
-      			MaxKitID = length;
-          }
+          if (MaxKitID < 1000) {
             for(let index = MinKitID; index < MaxKitID; index++){
               let kit = result[index];
-              setTimeout(() => {
+              // setTimeout(() => {
                 data.Sensors[0].Time = new Date(kit.Data.Create_at).getTime();
                 data.Sensors[1].Time = new Date(kit.Data.Create_at).getTime();
                 data["KitID"] = index + 1;
@@ -83,13 +80,17 @@ function init() {
                 data.Sensors[0].Data[1] = kit.Data.Humidity;
                 rp(optionsAddLastDataKit(data))
                   .then((response) => {
-                    //console.log(JSON.stringify({response, index}));
+                    // console.log(JSON.stringify({response, index}));
                   })
                   .catch((err) => {
                     console.log("Add Fail");
                   });
-                }, index*300);
+                // }, index*50);
             }
+          }else {
+            MinKitID = 0;
+      			MaxKitID = length;
+          }
             // console.log(result.rxs.obs[0].msg.model.timestamp*1000);
         });
     setTimeout(() => {
