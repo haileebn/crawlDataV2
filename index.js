@@ -127,7 +127,7 @@ function fakeRecordOneKit() {
         {
           name: 'PMS5003',
           Time: new Date().getTime(),
-          Data: [getRandomInt(40, 250), getRandomInt(40, 200), getRandomInt(250, 500)]
+          Data: [getRandomInt(40, 60), getRandomInt(60, 80), getRandomInt(80, 120)]
         },
       ]
     };
