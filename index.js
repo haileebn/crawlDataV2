@@ -6,7 +6,7 @@ const server = "http://118.70.72.15:2223";
 const urlAllKit = `https://airmap.g0v.asper.tw/json/airmap.json`;
 const urlDataKit = "http://118.70.72.15:2223/data";
 
-const length = 50;
+const length = 25;
 const timeMax = 30; //30s
 let MinKitID = 0;
 let MaxKitID = MinKitID + length;
@@ -127,7 +127,7 @@ function fakeRecordOneKit() {
         {
           name: 'PMS5003',
           Time: new Date().getTime(),
-          Data: [getRandomInt(40, 250), getRandomInt(40, 200), getRandomInt(250, 500)]
+          Data: [getRandomInt(40, 60), getRandomInt(60, 80), getRandomInt(80, 120)]
         },
       ]
     };
