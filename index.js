@@ -6,7 +6,7 @@ const server = "http://118.70.72.15:2223";
 const urlAllKit = `https://airmap.g0v.asper.tw/json/airmap.json`;
 const urlDataKit = "http://118.70.72.15:2223/data";
 
-const length = 50;
+const length = 25;
 const timeMax = 30; //30s
 let MinKitID = 0;
 let MaxKitID = MinKitID + length;
