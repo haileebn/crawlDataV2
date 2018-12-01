@@ -16,7 +16,7 @@ function run(db) {
                             let time = strDate(data.time)
                             db.collection(`stat`).findOne({ time, site: site.id, gas }).then(doc => {
                                 if (!doc) {
-                                    db.collection(`stat`).insertOne({ time, site: site.id, gas })
+                                    db.collection(`stat`).insertOne({ time, site: site.id, gas, value: data.value })
                                 }
                             }).catch(console.log)
                         }
@@ -29,7 +29,7 @@ function run(db) {
                             let time = strDate(data.time)
                             db.collection(`aqi`).findOne({ time, site: site.id, gas }).then(doc => {
                                 if (!doc) {
-                                    db.collection(`aqi`).insertOne({ time, site: site.id, gas })
+                                    db.collection(`aqi`).insertOne({ time, site: site.id, gas, value: data.value })
                                 }
                             }).catch(console.log)
                         }
