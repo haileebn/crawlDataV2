@@ -1,5 +1,5 @@
 const request = require(`request`)
-const { MongoClient } = require(`mongodb`)
+const { MongoClient } = require(`mongodb`) //npm i mongodb@2
 const GAS = ['PM2.5', 'PM10', 'NO2', 'CO', 'SO2', 'O3']
 
 MongoClient.connect(`mongodb://127.0.0.1/chicuc`).then(db => {

@@ -61,7 +61,7 @@ const optionsAddLastDataKit = function(data){
 };
 
 init();
-fakeDataKitFimo();
+//fakeDataKitFimo();
 
 function init() {
     const data = {KitID: "",Sensors: [{name: 'DHT22',Time: 0,Data: [ 0, 0]},{name: 'PMS5003',Time: 0,Data: [0, 0, 0]},]};
