@@ -2,9 +2,9 @@
 // const router = express();
 const rp = require('request-promise');
 
-const server = "http://auth2.fairnet.vn";
+const server = "http://api.fairnet.vn";
 const urlAllKit = `https://airmap.g0v.asper.tw/json/airmap.json`;
-const urlDataKit = "http://auth2.fairnet.vn/data";
+const urlDataKit = "http://api.fairnet.vn/data";
 
 const length = 25;
 const timeMax = 30; //30s
