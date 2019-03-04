@@ -3,7 +3,7 @@
 const rp = require('request-promise');
 
 const server = "http://api.fairnet.vn";
-const urlAllKit = `https://airmap.g0v.asper.tw/json/airmap.json`;
+const urlAllKit = `https://api.airmap.g0v.tw/json/airmap.json`;
 const urlDataKit = "http://api.fairnet.vn/data";
 
 const length = 25;
