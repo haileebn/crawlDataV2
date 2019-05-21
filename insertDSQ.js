@@ -3,16 +3,22 @@ const DSQ = require('./result.json')
 const urlDataKit = "http://api.fairnet.vn/data"
 const AIRNOW_API_KEY = 'EED17D2E-7206-4FE2-93B3-FD7269013ECB'
 
-getData().then(data => {
-    data = JSON.parse(data)
-    data.forEach((item, index) => {
-        const KitID = findDSQ(item.FullAQSCode)
-        setTimeout(() => {
-            if (KitID)
-                pushData(KitID, item.Value)
-        }, index * 500)
-    })
-})
+for (let i = 6; i < 50; i++) {
+    setTimeout(() => {
+        console.log(`Start ${i}`)
+        getData(i).then(data => {
+            data = JSON.parse(data)
+            data.forEach((item, index) => {
+                const KitID = findDSQ(item.FullAQSCode)
+                setTimeout(() => {
+                    if (KitID)
+                        pushData(KitID, item.Value, i)
+                }, index * 50)
+            })
+        })
+    }, (i - 6) * 3 * 60 * 1000)
+}
+
 
 const optionsAddLastDataKit = function (data) {
     return {
@@ -27,19 +33,19 @@ const optionsAddLastDataKit = function (data) {
     }
 }
 
-function getData() {
-    return rp(`http://www.airnowapi.org/aq/data/?startDate=${genDate()}&endDate=${genDate()}&parameters=PM25&BBOX=-180,-90,180,90&dataType=C&format=application/json&verbose=1&nowcastonly=0&API_KEY=${AIRNOW_API_KEY}`)
+function getData(i = 0) {
+    return rp(`http://www.airnowapi.org/aq/data/?startDate=${genDate(i)}&endDate=${genDate(i)}&parameters=PM25&BBOX=-180,-90,180,90&dataType=C&format=application/json&verbose=1&nowcastonly=0&API_KEY=${AIRNOW_API_KEY}`)
 }
 
-function genDate() {
+function genDate(i = 0) {
     const d = new Date()
-    d.setHours(d.getHours() - 8)
+    d.setHours(d.getHours() - 8 - i)
     return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}T${d.getHours()}`
 }
 
-function genTime() {
+function genTime(i = 0) {
     const d = new Date()
-    d.setHours(d.getHours() - 1)
+    d.setHours(d.getHours() - 1 - i)
     d.setMinutes(0)
     d.setSeconds(0)
     d.setMilliseconds(0)
@@ -48,21 +54,19 @@ function genTime() {
 
 function findDSQ(FullAQSCode) {
     const result = DSQ.filter(a => a.FullAQSCode === FullAQSCode)
-    console.log(result)
     if (result.length > 0)
         return result[0].KitID
     else
         return null
 }
 
-function pushData(KitID, PM25) {
-    const data = { KitID, Sensors: [{ name: 'PMS5003', Time: genTime(), Data: [0, PM25, 0] }] };
+function pushData(KitID, PM25, i = 0) {
+    const data = { KitID, Sensors: [{ name: 'PMS5003', Time: genTime(i), Data: [0, PM25, 0] }] };
     rp(optionsAddLastDataKit(data))
         .then((response) => {
-            console.log(JSON.stringify(response));
+            console.log(`Done ${KitID}`);
         })
         .catch((err) => {
-            console.log(err)
             console.log("Add Fail");
         });
 }
