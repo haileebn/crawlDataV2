@@ -71,6 +71,7 @@ function init() {
           if (MaxKitID < 1000) {
             for(let index = MinKitID; index < MaxKitID; index++){
               let kit = result[index];
+			  if(kit){
               // setTimeout(() => {
                 data.Sensors[0].Time = new Date(kit.Data.Create_at).getTime();
                 data.Sensors[1].Time = new Date(kit.Data.Create_at).getTime();
@@ -85,6 +86,7 @@ function init() {
                   .catch((err) => {
                     console.log("Add Fail");
                   });
+			  }
                 // }, index*50);
             }
           }else {
