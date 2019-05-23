@@ -62,7 +62,7 @@ const optionsAddLastDataKit = function (data) {
 };
 
 init();
-runUS()
+// runUS()
 //fakeDataKitFimo();
 
 function init() {
