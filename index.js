@@ -86,7 +86,7 @@ function init() {
                     // console.log(JSON.stringify({response, index}));
                   })
                   .catch((err) => {
-                    console.log(err);
+                    console.log(err.message);
                     console.log("Add Fail");
                   });
 			  }
@@ -179,6 +179,7 @@ function pushData(KitID, PM25) {
       console.log(`Done ${KitID}`);
     })
     .catch((err) => {
+      console.log(err.message);
       console.log("Add Fail");
     });
 }
