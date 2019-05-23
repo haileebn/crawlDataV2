@@ -86,7 +86,7 @@ function init() {
                     // console.log(JSON.stringify({response, index}));
                   })
                   .catch((err) => {
-                    console.log(err.message);
+                    // console.log(err.message);
                     console.log("Add Fail");
                   });
 			  }
@@ -179,7 +179,7 @@ function pushData(KitID, PM25) {
       console.log(`Done ${KitID}`);
     })
     .catch((err) => {
-      console.log(err.message);
+      // console.log(err.message);
       console.log("Add Fail");
     });
 }
@@ -187,13 +187,13 @@ function pushData(KitID, PM25) {
 function runUS() {
   getData().then(data => {
     data = JSON.parse(data)
-    console.log(data.length);
+    // console.log(data.length);
     data.forEach((item, index) => {
       const KitID = findDSQ(item.FullAQSCode);
       setTimeout(() => {
         if (KitID)
           pushData(KitID, item.Value)
-      }, index * 500)
+      }, index * 1000)
     })
   })
   setTimeout(() => {
