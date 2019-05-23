@@ -62,7 +62,7 @@ const optionsAddLastDataKit = function (data) {
 };
 
 init();
-// runUS()
+runUS()
 //fakeDataKitFimo();
 
 function init() {
@@ -187,8 +187,9 @@ function pushData(KitID, PM25) {
 function runUS() {
   getData().then(data => {
     data = JSON.parse(data)
+    console.log(data.length);
     data.forEach((item, index) => {
-      const KitID = findDSQ(item.FullAQSCode)
+      const KitID = findDSQ(item.FullAQSCode);
       setTimeout(() => {
         if (KitID)
           pushData(KitID, item.Value)
