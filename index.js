@@ -2,9 +2,9 @@
 // const router = express();
 const rp = require('request-promise');
 const DSQ = require('./result.json')
-const server = "http://api.fairnet.vn";
+const server = "http://192.168.0.69:2223";
 const urlAllKit = `https://api.airmap.g0v.tw/json/airmap.json`;
-const urlDataKit = "http://api.fairnet.vn/data";
+const urlDataKit = "http://192.168.0.69:2223/data";
 const AIRNOW_API_KEY = 'EED17D2E-7206-4FE2-93B3-FD7269013ECB'
 
 const length = 25;
