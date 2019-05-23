@@ -86,6 +86,7 @@ function init() {
                     // console.log(JSON.stringify({response, index}));
                   })
                   .catch((err) => {
+                    console.log(err);
                     console.log("Add Fail");
                   });
 			  }
