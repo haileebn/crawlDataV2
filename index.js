@@ -62,48 +62,48 @@ const optionsAddLastDataKit = function (data) {
 };
 
 init();
-runUS()
+runGetAirNow()
 //fakeDataKitFimo();
 
 function init() {
-    const data = {KitID: "",Sensors: [{name: 'DHT22',Time: 0,Data: [ 0, 0]},{name: 'PMS5003',Time: 0,Data: [0, 0, 0]},]};
-    const data2 = {KitID: "",Sensors: [{name: 'DHT22',Time: 0,Data: [ 0, 0]},{name: 'PMS5003',Time: 0,Data: [0, 0, 0]},]};
-    rp(optionsLastRecord())
-        .then(result => {
-          if (MaxKitID < 1000) {
-            for(let index = MinKitID; index < MaxKitID; index++){
-              let kit = result[index];
-			  if(kit){
-              // setTimeout(() => {
-                data.Sensors[0].Time = new Date(kit.Data.Create_at).getTime();
-                data.Sensors[1].Time = new Date(kit.Data.Create_at).getTime();
-                data["KitID"] = index + 1;
-                data.Sensors[1].Data[1] = kit.Data.Dust2_5;
-                data.Sensors[0].Data[0] = kit.Data.Temperature;
-                data.Sensors[0].Data[1] = kit.Data.Humidity;
-                rp(optionsAddLastDataKit(data))
-                  .then((response) => {
-                    // console.log(JSON.stringify({response, index}));
-                  })
-                  .catch((err) => {
-                    // console.log(err.message);
-                    console.log("Add Fail");
-                  });
-			  }
-                // }, index*50);
-            }
-          }else {
-            MinKitID = 0;
-      			MaxKitID = length;
+  const data = { KitID: "", Sensors: [{ name: 'DHT22', Time: 0, Data: [0, 0] }, { name: 'PMS5003', Time: 0, Data: [0, 0, 0] },] };
+  const data2 = { KitID: "", Sensors: [{ name: 'DHT22', Time: 0, Data: [0, 0] }, { name: 'PMS5003', Time: 0, Data: [0, 0, 0] },] };
+  rp(optionsLastRecord())
+    .then(result => {
+      if (MaxKitID < 1000) {
+        for (let index = MinKitID; index < MaxKitID; index++) {
+          let kit = result[index];
+          if (kit) {
+            // setTimeout(() => {
+            data.Sensors[0].Time = new Date(kit.Data.Create_at).getTime();
+            data.Sensors[1].Time = new Date(kit.Data.Create_at).getTime();
+            data["KitID"] = index + 1;
+            data.Sensors[1].Data[1] = kit.Data.Dust2_5;
+            data.Sensors[0].Data[0] = kit.Data.Temperature;
+            data.Sensors[0].Data[1] = kit.Data.Humidity;
+            rp(optionsAddLastDataKit(data))
+              .then((response) => {
+                // console.log(JSON.stringify({response, index}));
+              })
+              .catch((err) => {
+                // console.log(err.message);
+                console.log("Add Fail");
+              });
           }
-            // console.log(result.rxs.obs[0].msg.model.timestamp*1000);
-        });
-    setTimeout(() => {
-      console.log(`\nGet KitID: [${MinKitID} - ${MaxKitID}]`);
-      MinKitID = MaxKitID;
-      MaxKitID += length;
-      init();
-    }, timeMax*1000);
+          // }, index*50);
+        }
+      } else {
+        MinKitID = 0;
+        MaxKitID = length;
+      }
+      // console.log(result.rxs.obs[0].msg.model.timestamp*1000);
+    });
+  setTimeout(() => {
+    console.log(`\nGet KitID: [${MinKitID} - ${MaxKitID}]`);
+    MinKitID = MaxKitID;
+    MaxKitID += length;
+    init();
+  }, timeMax * 1000);
 }
 
 function fakeDataKitFimo() {
@@ -198,5 +198,24 @@ function runUS() {
   })
   setTimeout(() => {
     runUS()
+  }, 60 * 60 * 1000)
+}
+
+function runGetAirNow() {
+  console.log(`Getting airrnow`)
+  rp({ uri: `https://www.dosairnowdata.org/dos/AllPosts24Hour.json`, json: true }).then(result => {
+    if (result["Hanoi"]) {
+      console.log(`Hanoi `, result["Hanoi"].monitors[0].conc[23])
+      if (result["Hanoi"].monitors[0].conc[23])
+        pushData(1078, result["Hanoi"].monitors[0].conc[23])
+    }
+    if (result["Ho Chi Minh City"]) {
+      console.log(`Ho Chi Minh `, result["Ho Chi Minh City"].monitors[0].conc[23])
+      if (result["Ho Chi Minh City"].monitors[0].conc[23])
+        pushData(2106, result["Ho Chi Minh City"].monitors[0].conc[23])
+    }
+  })
+  setTimeout(() => {
+    runGetAirNow()
   }, 60 * 60 * 1000)
 }
